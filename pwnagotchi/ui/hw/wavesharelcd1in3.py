@@ -34,7 +34,7 @@ class Wavesharelcd1in3(DisplayImpl):
         logging.info("initializing waveshare 1.3 inch lcd display")
         try:
             from pwnagotchi.ui.hw.libs.waveshare.lcd.lcdhat1in3.LCD_1inch3 import LCD_1inch3
-            self._display = LCD_1inch3()
+            self._display = LCD_1inch3.LCD_1inch3(spi=SPI.SpiDev(1, 0),spi_freq=10000000,rst=27,dc=22,bl=19)()
             self._display.Init()
             self._display.clear()
             self._display.bl_DutyCycle(50)
