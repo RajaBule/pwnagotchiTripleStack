@@ -32,14 +32,22 @@ class Wavesharelcd1in3(DisplayImpl):
 
     def initialize(self):
         logging.info("initializing waveshare 1.3 inch lcd display")
-        from pwnagotchi.ui.hw.libs.waveshare.lcd.lcdhat1in3.LCD_1inch3 import LCD_1inch3
-        self._display = LCD_1inch3()
-        self._display.Init()
-        self._display.clear()
-        self._display.bl_DutyCycle(50)
-
+        try:
+            from pwnagotchi.ui.hw.libs.waveshare.lcd.lcdhat1in3.LCD_1inch3 import LCD_1inch3
+            self._display = LCD_1inch3()
+            self._display.Init()
+            self._display.clear()
+            self._display.bl_DutyCycle(50)
+            logging.info("Display initialized successfully")
+        except Exception as e:
+            logging.error(f"Error initializing display: {e}")
+        
     def render(self, canvas):
-        self._display.ShowImage(canvas)
+        try:
+            self._display.ShowImage(canvas)
+            logging.info("Image rendered successfully")
+        except Exception as e:
+            logging.error(f"Error rendering image: {e}")
 
     def clear(self):
         self._display.clear()
